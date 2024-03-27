@@ -1,0 +1,53 @@
+<odoo>
+<data>
+      <record id="view_budget_wizard_form" model="ir.ui.view">
+            <field name="name">budget.wizard.form</field>
+            <field name="model">budget.wizard</field>
+            <field name="arch" type="xml">
+            <form>
+                  <sheet>
+                        <h2>Budget Name</h2>
+                        <!-- <field name='name' placeholder='Budget: 1/1/2024 to 1/3/2024'/> -->
+                        <group>
+                              <group>
+                                    <label for='start_date' string='Duration' />
+                                    <div class="o_row">
+                                    <field name='start_date' />
+                                    <label for='end_date' string='->' />
+                                    <field name='end_date' class='oe_inline' />
+                                    </div>
+                                    <field name='period' />
+                              </group>
+                        </group>
+                  </sheet>
+                  <footer>
+                        <button string="Make an Offer" class="btn-primary" type="object" name="make_offer"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                  </footer>
+            </form>
+            </field>
+      </record> 
+
+
+      
+
+      <!-- <record id="open_budget_wizard" model="ir.actions.server">
+            <field name="name">Budgets</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_budget_budget"/>
+            <field name="binding_model_id" ref="model_budget_budget"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                    'name': 'Create multiple budgets',
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'budget.wizard',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context': {'default_property_ids': [(6, 0, records.ids)]},
+                }
+            </field>
+        </record>  -->
+</data>
+</odoo>
