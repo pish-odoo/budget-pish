@@ -7,7 +7,6 @@
             <form>
                   <sheet>
                         <h2>Budget Name</h2>
-                        <!-- <field name='name' placeholder='Budget: 1/1/2024 to 1/3/2024'/> -->
                         <group>
                               <group>
                                     <label for='start_date' string='Duration' />
@@ -17,13 +16,13 @@
                                     <field name='end_date' class='oe_inline' />
                                     </div>
                                     <field name='period' />
+                                    <field name='analytic_account_ids' widget='many2many_tags'/> 
                               </group>
                         </group>
                   </sheet>
                   <footer>
-                        <button string="Make an Offer" class="btn-primary" type="object" name="make_offer"/>
-                        <button string="Cancel" class="oe_link" special="cancel"/>
-                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <button string="Create Budget" class="btn-primary" type="object" name="make_offer"/>
+                        <button string="Discard" class="oe_link" special="cancel"/>
                   </footer>
             </form>
             </field>
