@@ -126,7 +126,7 @@ class BudgetWizard(models.Model):
             'name': 'Budgets Created',
             'type': 'ir.actions.act_window',
             'res_model': 'budget.budget',
-            'view_mode': 'tree,form',
+            'view_mode': 'kanban',
             'target': 'current',
         }
 

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class Budget(models.Model):
     _name = "budget.budget"
@@ -16,11 +17,19 @@ class Budget(models.Model):
     user_id = fields.Many2one('res.users', string='Responsible', default=lambda self: self.env.user)
     budget_lines = fields.One2many("budget.line", "budget_id", string="Items")
     color = fields.Integer(string='Color Index')
+    
+    is_above_budget = fields.Boolean()
+    
+    on_over_budget = fields.Selection([
+        ('warning','Warning'),
+        ('restriction','Restriction')
+    ])
     state = fields.Selection([
         ('draft','Draft'),
+         ('confirm','Confirm'),
         ('revised','Revised'),
         ('done','Done'),
-        ('confirm','Confirm')
+       
     ],
     default='draft')
 
@@ -28,6 +37,8 @@ class Budget(models.Model):
         return None
     
     
+
+
     def confirm_revised_budget(self):
         self.ensure_one()
         # Confirm the revised budget
@@ -80,6 +91,27 @@ class Budget(models.Model):
         }
         return action
     
+    def done_btn(self):
+        self.state = 'done'
+    
+    def reset_to_draft(self):
+        self.state = 'draft'
+
+    def open_budget_lines(self):
+        self.ensure_one()
+        # Find the budget lines related to the current budget
+        budget_lines = self.env['budget.line'].search([('budget_id', '=', self.id)])
+        # Construct action to open the tree view of budget lines
+        action = {
+            'name': 'Budget Lines',
+            'type': 'ir.actions.act_window',
+            'res_model': 'budget.line',
+            'view_mode': 'tree,pivot,gantt,graph',
+            'domain': [('id', 'in', budget_lines.ids)],
+        }
+        return action
+        
+
     def revised_budget(self):
         new_budget_data = self.copy_data()[0]
         new_budget_data.update({
@@ -120,3 +152,16 @@ class Budget(models.Model):
             'context': {'default_budget_id': self.id},
         }
         return action
+    
+    @api.constrains('on_over_budget')
+    def _check_over_budget(self):
+        for record in self:
+            budget_lines = self.env['budget.line'].search([('budget_id', '=', record.id)])
+            
+            # Check each budget line for exceeding the budget amount
+            for line in budget_lines:
+                if line.achived_amount > line.budget_amount:
+                    if record.on_over_budget == 'restriction':
+                        raise ValidationError("Cannot create account.analytic.line for this period due to budget restrictions.")
+                    elif record.on_over_budget == 'warning':
+                        record.is_above_budget = True

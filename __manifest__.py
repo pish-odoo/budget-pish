@@ -7,6 +7,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/budget_view.xml',
+        'views/budget_line_views.xml',
         'views/budget_menu.xml',
         'wizard/wizard.xml',
     ],

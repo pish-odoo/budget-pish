@@ -1,52 +1,52 @@
 <odoo>
-<data>
-      <record id="view_budget_wizard_form" model="ir.ui.view">
-            <field name="name">budget.wizard.form</field>
-            <field name="model">budget.wizard</field>
-            <field name="arch" type="xml">
-            <form>
-                  <sheet>
-                        <h2>Budget Name</h2>
-                        <group>
+      <data>
+            <record id="view_budget_wizard_form" model="ir.ui.view">
+                  <field name="name">budget.wizard.form</field>
+                  <field name="model">budget.wizard</field>
+                  <field name="arch" type="xml">
+                  <form>
+                        <sheet>
+                              <h2>Budget Name</h2>
                               <group>
-                                    <label for='start_date' string='Duration' />
-                                    <div class="o_row">
-                                    <field name='start_date' />
-                                    <label for='end_date' string='->' />
-                                    <field name='end_date' class='oe_inline' />
-                                    </div>
-                                    <field name='period' />
-                                    <field name='analytic_account_ids' widget='many2many_tags'/> 
+                                    <group>
+                                          <label for='start_date' string='Duration' />
+                                          <div class="o_row">
+                                          <field name='start_date' />
+                                          <label for='end_date' string='->' />
+                                          <field name='end_date' class='oe_inline' />
+                                          </div>
+                                          <field name='period' />
+                                          <field name='analytic_account_ids' widget='many2many_tags'/> 
+                                    </group>
                               </group>
-                        </group>
-                  </sheet>
-                  <footer>
-                        <button string="Create Budget" class="btn-primary" type="object" name="make_offer"/>
-                        <button string="Discard" class="oe_link" special="cancel"/>
-                  </footer>
-            </form>
-            </field>
-      </record> 
-
-
+                        </sheet>
+                        <footer>
+                              <button string="Create Budget" class="btn-primary" type="object" name="make_offer"/>
+                              <button string="Discard" class="oe_link" special="cancel"/>
+                        </footer>
+                  </form>
+                  </field>
+            </record> 
       
-
-      <!-- <record id="open_budget_wizard" model="ir.actions.server">
-            <field name="name">Budgets</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_budget_budget"/>
-            <field name="binding_model_id" ref="model_budget_budget"/>
-            <field name="state">code</field>
-            <field name="code">
-                action = {
-                    'name': 'Create multiple budgets',
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'budget.wizard',
-                    'view_mode': 'form',
-                    'target': 'new',
-                    'context': {'default_property_ids': [(6, 0, records.ids)]},
-                }
-            </field>
-        </record>  -->
-</data>
-</odoo>
+      
+            
+      
+            <!-- <record id="open_budget_wizard" model="ir.actions.server">
+                  <field name="name">Budgets</field>
+                  <field name="type">ir.actions.server</field>
+                  <field name="model_id" ref="model_budget_budget"/>
+                  <field name="binding_model_id" ref="model_budget_budget"/>
+                  <field name="state">code</field>
+                  <field name="code">
+                      action = {
+                          'name': 'Create multiple budgets',
+                          'type': 'ir.actions.act_window',
+                          'res_model': 'budget.wizard',
+                          'view_mode': 'form',
+                          'target': 'new',
+                          'context': {'default_property_ids': [(6, 0, records.ids)]},
+                      }
+                  </field>
+              </record>  -->
+      </data>
+      </odoo>
