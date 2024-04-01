@@ -15,6 +15,7 @@ class BudgetLine(models.Model):
    
     budget_name = fields.Char(related='budget_id.name', string="Budget Name")
     achieved_percentage = fields.Float(compute = '_compute_percentage')
+    per = fields.Float(related='achieved_percentage')
     start_date = fields.Date(string="from", related="budget_id.start_date")
     end_date = fields.Date(string="to", related="budget_id.end_date")
   
@@ -34,8 +35,8 @@ class BudgetLine(models.Model):
             ('auto_account_id', '=', line.analytic_account_id.id),
             ('date', '>=', line.start_date),
             ('date', '<=', line.end_date),
-            # ('amount'< '0')
             ])
+            
             achieved_amount = sum(analytic_line.amount for analytic_line in analytic_lines)
             line.achived_amount = abs(achieved_amount)
 
@@ -64,22 +65,7 @@ class BudgetLine(models.Model):
             record.achieved_percentage = 0.0
 
 
-#     @api.constrains('on_over_budget')
-#     def _check_over_budget(self):
-#         for record in self:
-#             if record.on_over_budget == 'restriction':
-               
-#                 over_budget_lines = self.env['budget.line'].search([
-#                     ('budget_id', '=', record.id),
-#                 ])
-#                 for line in over_budget_lines:
-#                  if line.achived_amount > line.budget_amount:
-#                     raise ValidationError("Cannot create budget because achived amount is greater than budget amount .")
-#             elif record.over_budget == 'warning':
-#                 over_budget_lines = self.env['budget.line'].search([
-#                     ('budget_id', '=', record.id),
-#                 ])
-#                 for line in over_budget_lines:
-#                  if line.achived_amount > line.budget_amount:
-#                     raise  ValidationError("Cannot create budget because achived amount is greater than budget amount")
+   
+
+
 

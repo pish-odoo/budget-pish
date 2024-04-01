@@ -12,7 +12,7 @@ class BudgetWizard(models.Model):
     start_date = fields.Date()
     end_date = fields.Date()
     period = fields.Selection([('monthly','Monthly'),('quarterly','Quarterly')])
-    budget_id = fields.Many2one('budget.budget', string="Budget")
+   
     analytic_account_ids = fields.Many2many('account.analytic.plan', string='Analytic Plan') 
 
 

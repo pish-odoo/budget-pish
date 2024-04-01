@@ -72,9 +72,9 @@
                                     <field name='state' widget='statusbar' />
                               </header>
                               <field name='on_over_budget' invisible='1'/>
-                              <field name='is_above_budget' invisible='1'/>
+                              <field name='above_budget' invisible='1'/>
                               <div invisible="on_over_budget != 'warning'">
-                                    <div class="alert alert-warning mb-0" invisible="not is_above_budget" role="alert" >
+                                    <div class="alert alert-warning mb-0" invisible="not above_budget" role="alert" >
                                      One of the achivde amount is greater than budget
                                     </div>
                               </div>

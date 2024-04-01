@@ -13,12 +13,12 @@ class Budget(models.Model):
     end_date = fields.Date()
     company = fields.Char()
     favorite = fields.Boolean('Favorite', copy=False, tracking=True)
-    partner_id = fields.Many2one('res.partner', string='Responsible')
+#     partner_id = fields.Many2one('res.partner', string='Responsible')
     user_id = fields.Many2one('res.users', string='Responsible', default=lambda self: self.env.user)
     budget_lines = fields.One2many("budget.line", "budget_id", string="Items")
     color = fields.Integer(string='Color Index')
     
-    is_above_budget = fields.Boolean()
+    above_budget = fields.Boolean()
     
     on_over_budget = fields.Selection([
         ('warning','Warning'),
@@ -165,4 +165,4 @@ class Budget(models.Model):
                     if record.on_over_budget == 'restriction':
                         raise ValidationError("Cannot create budget because achived amount is greater than budget amount ")
                     elif record.on_over_budget == 'warning':
-                        record.is_above_budget = True
+                        record.above_budget = True
