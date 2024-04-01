@@ -5,7 +5,7 @@
                   <field name="model">budget.line</field>
                   <field name="arch" type="xml">
                       <gantt string="Budget Lines" date_start="start_date" date_stop="end_date" default_scale="year"  default_group_by="budget_id" color="id">
-                          
+                       
                       </gantt>
                   </field>
               </record>
@@ -26,6 +26,7 @@
                       <graph string="Budget">
                           <field name="analytic_account_id" type="row"/>
                           <field name="budget_amount"/>
+                          <field name='rel_achived_amount'/>
                           <field name="achived_amount"/>
                       </graph>
                   </field>

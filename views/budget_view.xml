@@ -20,7 +20,7 @@
                   <field name="name">budget.view.kanban</field>
                   <field name="model">budget.budget</field>
                   <field name="arch" type="xml">
-                  <kanban records_draggable="0">
+                  <kanban type='object' action='open_budget_lines' records_draggable="0">
                         <field name="color"/>
                         <field name="user_id" string="Project Manager"/>
                         <templates>
@@ -57,6 +57,8 @@
                   </field>
             </record>
 
+            
+
             <record id="budget_view_form" model="ir.ui.view">
                   <field name="name">budget.view.form</field>
                   <field name="model">budget.budget</field>
@@ -73,7 +75,7 @@
                               <field name='is_above_budget' invisible='1'/>
                               <div invisible="on_over_budget != 'warning'">
                                     <div class="alert alert-warning mb-0" invisible="not is_above_budget" role="alert" >
-                                     One of the Budget line has exceeded its budget amount
+                                     One of the achivde amount is greater than budget
                                     </div>
                               </div>
                               <sheet>
@@ -100,7 +102,8 @@
                                     <notebook>
                                           <page name='Budget Lines'>
                                                 <field name='budget_lines'>
-                                                      <tree editable="state != 'confirm'">
+                                                    
+                                                      <tree editable="state=='draft'">
                                                             
                                                             <field name="analytic_account_id"/>
                                                             <field name="budget_amount" />

@@ -16,63 +16,6 @@ class BudgetWizard(models.Model):
     analytic_account_ids = fields.Many2many('account.analytic.plan', string='Analytic Plan') 
 
 
-    
-
-    # def make_offer(self):
-    #     self.ensure_one()
-    #     budget_obj = self.env['budget.budget']
-    #     budget_line_obj = self.env['budget.line']
-        
-    #     # Convert start_date and end_date to string format
-    #     start_date_str = self.start_date.strftime('%Y-%m-%d')
-    #     end_date_str = self.end_date.strftime('%Y-%m-%d')
-        
-    #     start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
-    #     end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
-        
-    #     # Create budgets for each month within the specified period
-    #     current_date = start_date
-    #     while current_date <= end_date:
-    #         # Determine the last day of the current month
-    #         last_day_of_month = current_date + relativedelta(day=31)
-    #         last_day_of_month = min(last_day_of_month, end_date)
-            
-    #         # Create or update budget with the provided data for the current month
-    #         budget_values = {
-    #             'name': f"Budget : {current_date.strftime('%Y-%m-%d')} to {last_day_of_month.strftime('%Y-%m-%d')}",
-    #             'start_date': current_date.strftime('%Y-%m-%d'),
-    #             'end_date': last_day_of_month.strftime('%Y-%m-%d'),
-    #             # Add other fields here
-    #         }
-    #         budget = budget_obj.create(budget_values)
-            
-            
-    #         for analytic_plan in self.analytic_account_ids:
-    #             for analytic_account in analytic_plan.account_ids:
-    #                 line_values = {
-    #                     'budget_id': budget.id,
-    #                     'analytic_account_id': analytic_account.id,
-    #                     # Add other fields such as budget_amount and achieved_amount here
-    #                 }
-    #                 budget_line_obj.create(line_values)
-            
-    #         # Move to the next month
-            
-    #         if self.period == 'monthly':
-    #             current_date += relativedelta(months=1)
-    #         elif self.period == 'quarterly':
-    #             current_date += relativedelta(months=3)
-    #         else: current_date += relativedelta(months=1)
-            
-        
-    #     # Optionally, perform additional actions or return an action
-    #     return {
-    #         'name': 'Budgets Created',
-    #         'type': 'ir.actions.act_window',
-    #         'res_model': 'budget.budget',
-    #         'view_mode': 'tree,form',
-    #         'target': 'current',
-    #     }
 
     def make_offer(self):
         self.ensure_one()

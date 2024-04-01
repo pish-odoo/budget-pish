@@ -44,7 +44,7 @@ class Budget(models.Model):
         # Confirm the revised budget
         self.state = 'confirm'
 
-        # If the revised budget is confirmed, set the original budget to revised state
+       
         if self.revised_id:
             self.revised_id.state = 'revised'
             message_body = """
@@ -52,7 +52,7 @@ class Budget(models.Model):
             <a href='#id={0}&view_type=form&model=budget.budget'>{1}</a>.</p>
             """.format(self.revised_id.id, self.revised_id.name)
 
-            # self.message_post(body=message_body, message_type='comment', subtype_id=self.env.ref('mail.mt_comment').id)
+           
             message_body2 = """
             <p>The revised budget has been confirmed. You can view the revised budget 
             <a href='#id={0}&view_type=form&model=budget.budget'>{1}</a>.</p>
@@ -99,9 +99,10 @@ class Budget(models.Model):
 
     def open_budget_lines(self):
         self.ensure_one()
-        # Find the budget lines related to the current budget
+        
         budget_lines = self.env['budget.line'].search([('budget_id', '=', self.id)])
-        # Construct action to open the tree view of budget lines
+      #   budget_lines = self.env['budget.line'].search([])
+        
         action = {
             'name': 'Budget Lines',
             'type': 'ir.actions.act_window',
@@ -158,10 +159,10 @@ class Budget(models.Model):
         for record in self:
             budget_lines = self.env['budget.line'].search([('budget_id', '=', record.id)])
             
-            # Check each budget line for exceeding the budget amount
+           
             for line in budget_lines:
                 if line.achived_amount > line.budget_amount:
                     if record.on_over_budget == 'restriction':
-                        raise ValidationError("Cannot create account.analytic.line for this period due to budget restrictions.")
+                        raise ValidationError("Cannot create budget because achived amount is greater than budget amount ")
                     elif record.on_over_budget == 'warning':
                         record.is_above_budget = True
